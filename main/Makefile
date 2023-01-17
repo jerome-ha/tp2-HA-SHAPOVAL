@@ -1,7 +1,7 @@
-all : prog
+all : gettftp
 
-prog : main.o
-	gcc main.o -o prog
+gettftp : main.o
+	gcc main.o -o gettftp
 	
 main.o : main.c
 	gcc -c main.c -g -Wall -o main.o
@@ -9,4 +9,4 @@ main.o : main.c
 	
 clean : 
 	rm -f *.o
-	rm -f prog
+	rm -f gettftp

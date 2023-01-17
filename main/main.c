@@ -13,6 +13,8 @@
 #define RRQ_SIZE 128
 #define ACK_SIZE 4
 #define BLOCK_SIZE 16
+#define BUF_SIZE 512
+
 
 char *hostname, *filename, *sockaddr;
 char ip_host[IP_SIZE];
@@ -24,6 +26,7 @@ int sock;
 char rrq[RRQ_SIZE];
 char dat[DATA_SIZE];
 char ack[ACK_SIZE];
+char buf[BUF_SIZE];
 
 int main(int argc, char *argv[]){
 	
@@ -103,7 +106,7 @@ int main(int argc, char *argv[]){
 	int nsend = sendto(sock, ack, sizeof(ack), 0, result->ai_addr, result->ai_addrlen);
 	printf("Number of byte received : %i",nsend);
 
-	
+
 	freeaddrinfo(result);
 
 	return 0;

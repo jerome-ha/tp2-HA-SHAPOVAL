@@ -7,7 +7,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 
-#define port "69"
+#define port "1069"
 #define DATA_SIZE 512
 #define IP_SIZE 512
 #define RRQ_SIZE 128
@@ -20,7 +20,7 @@ char *hostname, *filename, *sockaddr;
 char ip_host[IP_SIZE];
 struct addrinfo hints;
 struct addrinfo *result, *p;
-char ipstr[INET_ADDRSTRLEN]; 
+char ipstr[INET_ADDRSTRLEN]; // INET_ADDRSTRLEN length IPv4 adress
 void *addr;
 int sock;
 char rrq[RRQ_SIZE];
@@ -30,8 +30,10 @@ char buf[BUF_SIZE];
 
 int main(int argc, char *argv[]){
 	
-	if (argc==3){ 
-		hostname = argv[1]; 
+	/* Q1 SAVE SERVER'S AND FILE'S NAME  */
+	
+	if (argc==3){ // 3: NAME OF THE PROGRAM, SERVER'S AND FILE'S NAME
+		hostname = argv[1]; // argv[0] gettftp OR puttftp NAME OF PROGRAM
 		filename = argv[2];
 		printf("The server's name is : %s\n",hostname);
 		printf("The file's name is : %s\n",filename);
@@ -42,12 +44,13 @@ int main(int argc, char *argv[]){
 	}
 	
 	memset(&hints, 0, sizeof(struct addrinfo));
-	hints.ai_family = AF_INET;			
-	hints.ai_socktype = SOCK_DGRAM; 	
-	hints.ai_protocol = IPPROTO_UDP; 				
+	hints.ai_family = AF_INET;		// IPv4	 Adresses
+	hints.ai_socktype = SOCK_DGRAM; 	// Datagram socket, used for UDP protocols 
+	hints.ai_protocol = IPPROTO_UDP; 	// any other protocol			
 	
 	int s = getaddrinfo(hostname, port, &hints, &result);
 	
+	/* ERROR */
 	if (s!=0){ 
 		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s)); 
         exit(EXIT_FAILURE);
